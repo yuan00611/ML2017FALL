@@ -8,6 +8,7 @@ import numpy as np
 from random import shuffle
 import argparse
 from math import log, floor
+import csv
 
 x = pd.read_csv(sys.argv[1], sep = ',', header = 0)
 del x['fnlwgt']
@@ -58,6 +59,13 @@ def infer(X_test, save_dir, output_dir):
     y_ = np.around(y)
 
     print('=====Write output to %s =====' % output_dir)
+    with open(output_dir, 'w') as f:
+        f.write('id,label\n')
+        for i, v in  enumerate(y_):
+            f.write('%d,%d\n' %(i+1, v))
+    return
+'''
+    print('=====Write output to %s =====' % output_dir)
     # Write output
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
@@ -66,8 +74,7 @@ def infer(X_test, save_dir, output_dir):
         f.write('id,label\n')
         for i, v in  enumerate(y_):
             f.write('%d,%d\n' %(i+1, v))
-
-    return
+'''
 
 def sigmoid(z):
     res = 1 / (1.0 + np.exp(-z))

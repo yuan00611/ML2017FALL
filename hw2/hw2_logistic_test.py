@@ -64,7 +64,15 @@ def infer(X_test, save_dir, output_dir):
     z = (np.dot(X_test, np.transpose(w)) + b)
     y = sigmoid(z)
     y_ = np.around(y)
+    
+    print('=====Write output to %s =====' % output_dir)
+    with open(output_dir, 'w') as f:
+        f.write('id,label\n')
+        for i, v in  enumerate(y_):
+            f.write('%d,%d\n' %(i+1, v))
 
+    return
+'''
     print('=====Write output to %s =====' % output_dir)
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
@@ -73,8 +81,8 @@ def infer(X_test, save_dir, output_dir):
         f.write('id,label\n')
         for i, v in  enumerate(y_):
             f.write('%d,%d\n' %(i+1, v))
-
-    return
+'''
+    
 
 def sigmoid(z):
     res = 1 / (1.0 + np.exp(-z))
